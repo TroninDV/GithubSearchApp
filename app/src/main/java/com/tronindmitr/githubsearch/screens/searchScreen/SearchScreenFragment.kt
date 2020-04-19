@@ -38,7 +38,10 @@ class SearchScreenFragment : Fragment() {
             Navigation.findNavController(it).navigate(R.id.action_searchScreenFragment_to_historyScreenFragment)
         }
 
+
+
         return binding.root
     }
+
 
 }
