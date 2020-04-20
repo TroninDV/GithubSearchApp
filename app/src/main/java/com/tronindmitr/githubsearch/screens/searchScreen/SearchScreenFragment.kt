@@ -34,6 +34,9 @@ class SearchScreenFragment : Fragment() {
 
         binding.lifecycleOwner = this
 
+        val adapter = RepositoryViewAdapter()
+        binding.recyclerList.adapter = adapter
+
         //viewModel =
 
         binding.searchScreenViewModel = viewModel

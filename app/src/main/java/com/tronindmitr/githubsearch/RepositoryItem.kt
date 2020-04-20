@@ -5,6 +5,7 @@ import com.squareup.moshi.Json
 data class RepositoryItem(
     val id: String,
     val name: String,
+    val owner: Owner,
     @Json(name = "html_url") val url: String,
     val description: String?,
     val language: String?,
@@ -16,3 +17,8 @@ data class ResponseData(
     //val incomplete_results: Boolean,
     val items: List<RepositoryItem>
 )
+
+data class Owner (
+    val login: String
+)
+
