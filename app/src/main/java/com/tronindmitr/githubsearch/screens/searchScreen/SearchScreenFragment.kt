@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -18,7 +19,9 @@ import com.tronindmitr.githubsearch.databinding.FragmentSearchScreenBinding
  */
 class SearchScreenFragment : Fragment() {
 
-    private lateinit var viewModel: SearchScreenViewModel
+    private val viewModel: SearchScreenViewModel by lazy {
+        ViewModelProviders.of(this).get(SearchScreenViewModel::class.java)
+    }
 
     private lateinit var binding: FragmentSearchScreenBinding
 
@@ -27,10 +30,11 @@ class SearchScreenFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        binding  =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_search_screen, container, false)
+        binding  = FragmentSearchScreenBinding.inflate(inflater)
 
-        viewModel = ViewModelProviders.of(this).get(SearchScreenViewModel::class.java)
+        binding.lifecycleOwner = this
+
+        //viewModel =
 
         binding.searchScreenViewModel = viewModel
 
@@ -38,9 +42,19 @@ class SearchScreenFragment : Fragment() {
             Navigation.findNavController(it).navigate(R.id.action_searchScreenFragment_to_historyScreenFragment)
         }
 
-
+        binding.searchButtonSearchScreenFragment.setOnClickListener {onCLick()}
 
         return binding.root
+    }
+
+    private fun onCLick() {
+        val string = binding.inputBarTextSearchScreenFragment.text
+        if (string.isNotBlank() && string.isNotEmpty())
+            viewModel.onClick(string)
+        else
+            Toast.makeText(this.context, "Empty string", Toast.LENGTH_SHORT).show()
+
+
     }
 
 
