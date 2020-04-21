@@ -1,17 +1,20 @@
-package com.tronindmitr.githubsearch.screens.searchScreen
+package com.tronindmitr.githubsearch.screens.util
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.tronindmitr.githubsearch.RepositoryItem
 import com.tronindmitr.githubsearch.databinding.ListItemRepositoryBinding
 
-class RepositoryViewAdapter(val clickListner: RepositoryItemListener) : ListAdapter<RepositoryItem, RepositoryViewAdapter.ViewHolder>(RepositoryItemDiffCallback()) {
+class RepositoryViewAdapter(val clickListner: RepositoryItemListener) : ListAdapter<RepositoryItem, RepositoryViewAdapter.ViewHolder>(
+    RepositoryItemDiffCallback()
+) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder.from(parent)
+        return ViewHolder.from(
+            parent
+        )
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -34,7 +37,9 @@ class RepositoryViewAdapter(val clickListner: RepositoryItemListener) : ListAdap
             fun from(parent : ViewGroup): ViewHolder {
                 val lauoutInflater = LayoutInflater.from(parent.context)
                 val binding = ListItemRepositoryBinding.inflate(lauoutInflater, parent, false)
-                return ViewHolder(binding)
+                return ViewHolder(
+                    binding
+                )
             }
         }
     }
@@ -50,7 +55,7 @@ class RepositoryItemDiffCallback : DiffUtil.ItemCallback<RepositoryItem>() {
     }
 }
 
-class RepositoryItemListener(val clickListner: (repositoryItem: RepositoryItem ) -> Unit) {
+class RepositoryItemListener(val clickListner: (repositoryItem: RepositoryItem) -> Unit) {
     fun onClick(repositoryItem: RepositoryItem) = clickListner(repositoryItem)
 }
 

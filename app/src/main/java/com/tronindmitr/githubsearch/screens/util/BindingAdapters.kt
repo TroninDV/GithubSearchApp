@@ -1,4 +1,4 @@
-package com.tronindmitr.githubsearch
+package com.tronindmitr.githubsearch.screens.util
 
 import android.view.View
 import android.widget.ImageView
@@ -7,7 +7,6 @@ import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.tronindmitr.githubsearch.screens.searchScreen.RepositorySearchApiStatus
-import com.tronindmitr.githubsearch.screens.searchScreen.RepositoryViewAdapter
 
 @BindingAdapter("listData")
 fun bindRecycleView(recucleView: RecyclerView, data: List<RepositoryItem>?) {

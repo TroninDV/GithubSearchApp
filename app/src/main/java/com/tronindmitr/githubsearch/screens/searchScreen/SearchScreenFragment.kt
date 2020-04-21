@@ -4,56 +4,61 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.KeyEvent
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.ContextCompat.getSystemService
-import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.tronindmitr.githubsearch.R
 import com.tronindmitr.githubsearch.databinding.FragmentSearchScreenBinding
+import com.tronindmitr.githubsearch.screens.database.RepositoryDatabase
+import com.tronindmitr.githubsearch.screens.util.RepositoryItemListener
+import com.tronindmitr.githubsearch.screens.util.RepositoryViewAdapter
 
 /**
  * A simple [Fragment] subclass.
  */
 class SearchScreenFragment : Fragment() {
 
-    private val viewModel: SearchScreenViewModel by lazy {
-        ViewModelProviders.of(this).get(SearchScreenViewModel::class.java)
-    }
-
     private lateinit var binding: FragmentSearchScreenBinding
+
+    private lateinit var searchScreenViewModel: SearchScreenViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
+        val application = requireNotNull(this.activity).application
+
+        val dataSource = RepositoryDatabase.getInstance(application).repositoryDatabaseDao
+
+        val viewModelFactory = SearchScreenViewModelFactory(dataSource, application)
+
         binding = FragmentSearchScreenBinding.inflate(inflater)
+
+        searchScreenViewModel = ViewModelProviders.of(this, viewModelFactory).get(
+            SearchScreenViewModel::class.java)
+
+        binding.searchScreenViewModel = searchScreenViewModel
 
         binding.lifecycleOwner = this
 
-        val adapter = RepositoryViewAdapter(RepositoryItemListener { repositoryItem ->
-            val openUrlIntent = Intent(Intent.ACTION_VIEW)
-            openUrlIntent.data = Uri.parse(repositoryItem.url)
-            startActivity(openUrlIntent)
+        val adapter =
+            RepositoryViewAdapter(
+                RepositoryItemListener { repositoryItem ->
+                    searchScreenViewModel.onItemBrowse(repositoryItem)
+                    val openUrlIntent = Intent(Intent.ACTION_VIEW)
+                    openUrlIntent.data = Uri.parse(repositoryItem.url)
+                    startActivity(openUrlIntent)
 
-            Toast.makeText(this.context, repositoryItem.url, Toast.LENGTH_SHORT).show()
-        })
-        binding.recyclerList.adapter = adapter
-
-        //viewModel =
-
-        binding.searchScreenViewModel = viewModel
+                    Toast.makeText(this.context, repositoryItem.url, Toast.LENGTH_SHORT).show()
+                })
+        binding.recyclerListSearchScreenFragment.adapter = adapter
 
         binding.historyButtonSearchScreenFragment.setOnClickListener {
             Navigation.findNavController(it)
@@ -79,7 +84,7 @@ class SearchScreenFragment : Fragment() {
 
         val string = binding.inputBarTextSearchScreenFragment.text.toString()
         if (string.isNotBlank() && string.isNotEmpty()) {
-            viewModel.onClick(string)
+            searchScreenViewModel.onClick(string)
         } else
             Toast.makeText(this.context, "Empty string", Toast.LENGTH_SHORT).show()
     }

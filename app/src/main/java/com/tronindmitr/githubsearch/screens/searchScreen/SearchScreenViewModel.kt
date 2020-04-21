@@ -1,27 +1,31 @@
 package com.tronindmitr.githubsearch.screens.searchScreen
 
+import android.app.Application
 import android.util.Log
-import android.widget.Toast
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import com.tronindmitr.githubsearch.RepositoryItem
-import com.tronindmitr.githubsearch.ResponseData
+import androidx.lifecycle.MutableLiveData
+import com.tronindmitr.githubsearch.screens.database.RepositoryDatabase
+import com.tronindmitr.githubsearch.screens.database.RepositoryDatabaseDao
+import com.tronindmitr.githubsearch.screens.network.RepositorySearchApi
+import com.tronindmitr.githubsearch.screens.util.RepositoryItem
+import com.tronindmitr.githubsearch.screens.util.addOrUpdateDatabase
 import kotlinx.coroutines.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import java.lang.Exception
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 enum class RepositorySearchApiStatus { LOADING, EMPTY, ERROR, DONE }
 
 enum class RepositorySearchApiResponse { NOTEMPTY, }
 
 
-class SearchScreenViewModel : ViewModel() {
+class SearchScreenViewModel(val database: RepositoryDatabaseDao, application: Application) :
+    AndroidViewModel(application) {
 
     private var viewmodelJob = Job()
-    private var couroutineScope = CoroutineScope(viewmodelJob + Dispatchers.Main)
+    private var mainCouroutineScope = CoroutineScope(viewmodelJob + Dispatchers.Main)
+    private var ioCoroutineScope = CoroutineScope(viewmodelJob + Dispatchers.IO)
 
     private val _response = MutableLiveData<List<RepositoryItem>>()
     val response: LiveData<List<RepositoryItem>>
@@ -35,10 +39,14 @@ class SearchScreenViewModel : ViewModel() {
     init {
     }
 
+    fun onItemBrowse(repositoryItem: RepositoryItem) {
+        addOrUpdateDatabase(database, ioCoroutineScope, repositoryItem)
+    }
+
     fun onClick(string: String) {
         _response.value = ArrayList()
         _status.value = RepositorySearchApiStatus.LOADING
-        couroutineScope.launch {
+        mainCouroutineScope.launch {
             try {
                 val str = string.replace(' ', '+') + "+sort:starts"
                 val serverResponse = RepositorySearchApi.retrofitService.getProp(string, 100)
@@ -70,6 +78,10 @@ class SearchScreenViewModel : ViewModel() {
 
     override fun onCleared() {
         super.onCleared()
-        couroutineScope.cancel()
+        viewmodelJob.cancel()
     }
+
+
 }
+
+
