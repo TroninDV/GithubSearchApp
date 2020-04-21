@@ -1,9 +1,14 @@
-package com.tronindmitr.githubsearch
+package com.tronindmitr.githubsearch.screens.util
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import androidx.room.TypeConverter
+import com.squareup.moshi.FromJson
 import com.squareup.moshi.Json
+import com.squareup.moshi.ToJson
+import java.text.DateFormat
+import java.text.SimpleDateFormat
 
 
 @Entity(tableName = "repository_table")
@@ -26,6 +31,7 @@ data class RepositoryItem(
 
     @ColumnInfo(name = "repository_language")
     val language: String?,
+
     @ColumnInfo(name = "repository_create_date")
     @Json(name = "created_at") val createDate: String,
 
@@ -44,3 +50,17 @@ data class Owner (
     val login: String
 )
 
+//Converter for Room database (column name of the owner)
+class OwnerConverter {
+    @TypeConverter
+    fun ownerToString(owner: Owner?): String? {
+        return owner?.login
+    }
+
+    @TypeConverter
+    fun stringToOwner(string: String?): Owner? {
+        return if (string == null) null else Owner(
+            string
+        )
+    }
+}
