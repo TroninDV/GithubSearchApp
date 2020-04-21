@@ -53,28 +53,27 @@ class SearchScreenFragment : Fragment() {
         }
 
         binding.searchButtonSearchScreenFragment.setOnClickListener { onCLick() }
+
         binding.inputBarTextSearchScreenFragment.setOnEditorActionListener { textView, actionId, event ->
             return@setOnEditorActionListener if (actionId == EditorInfo.IME_ACTION_DONE) {
                 onCLick()
                 true
             } else false
         }
-
-
         return binding.root
     }
 
 
     private fun onCLick() {
+        //Hiding the keyboard
         val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(view?.windowToken, 0)
+
         val string = binding.inputBarTextSearchScreenFragment.text.toString()
         if (string.isNotBlank() && string.isNotEmpty()) {
             viewModel.onClick(string)
         } else
             Toast.makeText(this.context, "Empty string", Toast.LENGTH_SHORT).show()
-
-
     }
 
 

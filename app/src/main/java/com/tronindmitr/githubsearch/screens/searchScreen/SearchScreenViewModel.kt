@@ -13,7 +13,9 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.lang.Exception
 
-enum class RepositorySearchApiStatus {LOADING, ERROR, DONE}
+enum class RepositorySearchApiStatus { LOADING, EMPTY, ERROR, DONE }
+
+enum class RepositorySearchApiResponse { NOTEMPTY, }
 
 
 class SearchScreenViewModel : ViewModel() {
@@ -43,9 +45,16 @@ class SearchScreenViewModel : ViewModel() {
                 val serverResponse = RepositorySearchApi.retrofitService.getProp(string, 100)
 
                 if (serverResponse.isSuccessful) {
-                    //TODO()
-                    _status.value = RepositorySearchApiStatus.DONE
-                    _response.value = serverResponse.body()?.items
+                    val responseBody = serverResponse.body()
+                    if (responseBody != null) {
+                        if (responseBody.items.isEmpty()) {
+                            _status.value = RepositorySearchApiStatus.EMPTY
+                        } else {
+                            _status.value = RepositorySearchApiStatus.DONE
+                            _response.value = responseBody.items
+                        }
+                    }
+
                 } else {
                     _status.value = RepositorySearchApiStatus.ERROR
                     _response.value = ArrayList()

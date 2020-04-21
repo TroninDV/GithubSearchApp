@@ -16,7 +16,7 @@ fun bindRecycleView(recucleView: RecyclerView, data: List<RepositoryItem>?) {
 }
 
 @BindingAdapter("repositorySearchApiErrorStatus")
-fun bindStatus(statusImageView: ImageView, status: RepositorySearchApiStatus?) {
+fun bindErrorStatus(statusImageView: ImageView, status: RepositorySearchApiStatus?) {
     when(status) {
         RepositorySearchApiStatus.ERROR -> {
             statusImageView.visibility = View.VISIBLE
@@ -27,11 +27,13 @@ fun bindStatus(statusImageView: ImageView, status: RepositorySearchApiStatus?) {
         RepositorySearchApiStatus.LOADING -> {
             statusImageView.visibility = View.GONE
         }
+        RepositorySearchApiStatus.EMPTY ->  statusImageView.visibility = View.GONE
+
     }
 }
 
 @BindingAdapter("repositorySearchApiLoadingStatus")
-fun BindStatus(loadingLayout: RelativeLayout, status: RepositorySearchApiStatus?) {
+fun bindLoadingStatus(loadingLayout: RelativeLayout, status: RepositorySearchApiStatus?) {
     when(status) {
         RepositorySearchApiStatus.LOADING -> {
             loadingLayout.visibility = View.VISIBLE
@@ -41,6 +43,17 @@ fun BindStatus(loadingLayout: RelativeLayout, status: RepositorySearchApiStatus?
         }
         RepositorySearchApiStatus.ERROR -> {
             loadingLayout.visibility = View.GONE}
+        RepositorySearchApiStatus.EMPTY ->  loadingLayout.visibility = View.GONE
+    }
+}
+
+@BindingAdapter("repositorySearchApiEmptyStatus")
+fun TextView.bindEmptyStatus(status: RepositorySearchApiStatus?) {
+    when(status) {
+        RepositorySearchApiStatus.LOADING -> visibility = View.GONE
+        RepositorySearchApiStatus.EMPTY -> visibility = View.VISIBLE
+        RepositorySearchApiStatus.ERROR -> visibility = View.GONE
+        RepositorySearchApiStatus.DONE -> visibility = View.GONE
     }
 }
 
