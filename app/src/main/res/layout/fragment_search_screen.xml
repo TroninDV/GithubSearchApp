@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="searchScreenViewModel"
             type="com.tronindmitr.githubsearch.screens.searchScreen.SearchScreenViewModel" />
@@ -62,7 +60,7 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_list"
+            android:id="@+id/recycler_list_search_screen_fragment"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="8dp"
@@ -86,22 +84,21 @@
             tools:listitem="@layout/list_item_repository" />
 
         <ImageView
-            android:id="@+id/status_image"
+            android:id="@+id/status_image_search_screen_fragment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
             android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@+id/recycler_list"
-            app:layout_constraintEnd_toEndOf="@+id/recycler_list"
-            app:layout_constraintStart_toStartOf="@+id/recycler_list"
-            app:layout_constraintTop_toTopOf="@+id/recycler_list"
+            app:layout_constraintBottom_toBottomOf="@+id/recycler_list_search_screen_fragment"
+            app:layout_constraintEnd_toEndOf="@+id/recycler_list_search_screen_fragment"
+            app:layout_constraintStart_toStartOf="@+id/recycler_list_search_screen_fragment"
+            app:layout_constraintTop_toTopOf="@+id/recycler_list_search_screen_fragment"
             app:repositorySearchApiErrorStatus="@{searchScreenViewModel.status}"
             app:srcCompat="@drawable/baseline_cloud_off_24"
             tools:srcCompat="@drawable/baseline_cloud_off_24" />
 
-
         <RelativeLayout
-            android:id="@+id/loading_panel"
+            android:id="@+id/loading_panel_search_screen_fragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
@@ -115,15 +112,16 @@
         </RelativeLayout>
 
         <TextView
+            android:id="@+id/empty_list_notice_search_screen_fragment"
             repositorySearchApiEmptyStatus="@{searchScreenViewModel.status}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Nothing to show"
             android:textSize="24sp"
             android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@+id/recycler_list"
-            app:layout_constraintEnd_toEndOf="@+id/recycler_list"
-            app:layout_constraintStart_toStartOf="@+id/recycler_list"
-            app:layout_constraintTop_toTopOf="@+id/recycler_list" />
+            app:layout_constraintBottom_toBottomOf="@+id/recycler_list_search_screen_fragment"
+            app:layout_constraintEnd_toEndOf="@+id/recycler_list_search_screen_fragment"
+            app:layout_constraintStart_toStartOf="@+id/recycler_list_search_screen_fragment"
+            app:layout_constraintTop_toTopOf="@+id/recycler_list_search_screen_fragment" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

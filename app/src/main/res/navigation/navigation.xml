@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/historyScreenFragment"
-        android:name="com.tronindmitr.githubsearch.HistoryScreenFragment"
+        android:name="com.tronindmitr.githubsearch.screens.historyScreen.HistoryScreenFragment"
         android:label="fragment_history_screen"
         tools:layout="@layout/fragment_history_screen"
         />

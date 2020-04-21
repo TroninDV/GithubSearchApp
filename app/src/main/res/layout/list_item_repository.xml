@@ -6,11 +6,11 @@
     <data>
         <variable
             name="repositoryItem"
-            type="com.tronindmitr.githubsearch.RepositoryItem" />
+            type="com.tronindmitr.githubsearch.screens.util.RepositoryItem" />
 
         <variable
             name="clickListener"
-            type="com.tronindmitr.githubsearch.screens.searchScreen.RepositoryItemListener" />
+            type="com.tronindmitr.githubsearch.screens.util.RepositoryItemListener" />
     </data>
     
     <androidx.constraintlayout.widget.ConstraintLayout
