@@ -9,7 +9,6 @@ import com.tronindmitr.githubsearch.RepositoryItem
 
 @Dao
 interface RepositoryDatabaseDao {
-
     @Insert
     fun insert(repositoryItem: RepositoryItem)
 
