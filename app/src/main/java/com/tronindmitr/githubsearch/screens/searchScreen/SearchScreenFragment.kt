@@ -1,11 +1,17 @@
 package com.tronindmitr.githubsearch.screens.searchScreen
 
+import android.content.Context
 import android.os.Bundle
+import android.view.KeyEvent
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
+import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -30,7 +36,7 @@ class SearchScreenFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        binding  = FragmentSearchScreenBinding.inflate(inflater)
+        binding = FragmentSearchScreenBinding.inflate(inflater)
 
         binding.lifecycleOwner = this
 
@@ -42,20 +48,30 @@ class SearchScreenFragment : Fragment() {
         binding.searchScreenViewModel = viewModel
 
         binding.historyButtonSearchScreenFragment.setOnClickListener {
-            Navigation.findNavController(it).navigate(R.id.action_searchScreenFragment_to_historyScreenFragment)
+            Navigation.findNavController(it)
+                .navigate(R.id.action_searchScreenFragment_to_historyScreenFragment)
         }
 
-        binding.searchButtonSearchScreenFragment.setOnClickListener {onCLick()}
+        binding.searchButtonSearchScreenFragment.setOnClickListener { onCLick() }
+        binding.inputBarTextSearchScreenFragment.setOnEditorActionListener { textView, actionId, event ->
+            return@setOnEditorActionListener if (actionId == EditorInfo.IME_ACTION_DONE) {
+                onCLick()
+                true
+            } else false
+        }
+
 
         return binding.root
     }
 
+
     private fun onCLick() {
+        val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view?.windowToken, 0)
         val string = binding.inputBarTextSearchScreenFragment.text.toString()
         if (string.isNotBlank() && string.isNotEmpty()) {
             viewModel.onClick(string)
-        }
-        else
+        } else
             Toast.makeText(this.context, "Empty string", Toast.LENGTH_SHORT).show()
 
 

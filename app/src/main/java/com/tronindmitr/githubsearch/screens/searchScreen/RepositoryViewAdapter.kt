@@ -23,11 +23,7 @@ class RepositoryViewAdapter : ListAdapter<RepositoryItem, RepositoryViewAdapter.
     class ViewHolder private constructor(val binding: ListItemRepositoryBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: RepositoryItem) {
-            binding.nameText.text = item.name
-            binding.dateText.text = item.date
-            binding.langText.text = item.language ?: ""
-            binding.descriptionText.text = item.description ?: ""
-            binding.ownerText.text = item.owner.login
+            binding.repositoryItem = item
             binding.executePendingBindings()
         }
 

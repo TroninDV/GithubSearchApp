@@ -26,6 +26,7 @@
             android:layout_marginEnd="4dp"
             android:ems="10"
             android:hint="Type in search phrase"
+            android:imeOptions="actionDone"
             android:inputType="textPersonName"
             app:layout_constraintEnd_toStartOf="@+id/search_button_search_screen_fragment"
             app:layout_constraintHorizontal_bias="0.5"
@@ -84,5 +85,34 @@
             app:listData="@{searchScreenViewModel.response}"
             tools:itemCount="8"
             tools:listitem="@layout/list_item_repository" />
+
+        <ImageView
+            android:id="@+id/status_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/recycler_list"
+            app:layout_constraintEnd_toEndOf="@+id/recycler_list"
+            app:layout_constraintStart_toStartOf="@+id/recycler_list"
+            app:layout_constraintTop_toTopOf="@+id/recycler_list"
+            app:repositorySearchApiErrorStatus="@{searchScreenViewModel.status}"
+            app:srcCompat="@drawable/baseline_cloud_off_24"
+            tools:srcCompat="@drawable/baseline_cloud_off_24" />
+
+
+        <RelativeLayout
+            android:id="@+id/loading_panel"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:visibility="gone"
+            app:repositorySearchApiLoadingStatus="@{searchScreenViewModel.status}">
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminate="true" />
+        </RelativeLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
