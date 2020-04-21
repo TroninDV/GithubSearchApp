@@ -23,12 +23,9 @@ private val retrofit = Retrofit.Builder()
     .build()
 
 interface RepositorySearchApiService {
-    @GET ("repositories")
-    fun getPropities(@Query("q") address: CharSequence
-    ) : Call<ResponseData>
 
     @GET ("repositories")
-    suspend fun getProp(@Query("q") address: CharSequence) : Response<ResponseData>
+    suspend fun getProp(@Query("q") word: String, @Query("per_page") per_page: Int ) : Response<ResponseData>
 }
 
 object RepositorySearchApi {

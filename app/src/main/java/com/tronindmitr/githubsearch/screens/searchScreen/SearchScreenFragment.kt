@@ -51,9 +51,10 @@ class SearchScreenFragment : Fragment() {
     }
 
     private fun onCLick() {
-        val string = binding.inputBarTextSearchScreenFragment.text
-        if (string.isNotBlank() && string.isNotEmpty())
+        val string = binding.inputBarTextSearchScreenFragment.text.toString()
+        if (string.isNotBlank() && string.isNotEmpty()) {
             viewModel.onClick(string)
+        }
         else
             Toast.makeText(this.context, "Empty string", Toast.LENGTH_SHORT).show()
 

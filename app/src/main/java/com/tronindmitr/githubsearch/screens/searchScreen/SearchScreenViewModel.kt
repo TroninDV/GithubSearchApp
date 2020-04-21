@@ -1,6 +1,7 @@
 package com.tronindmitr.githubsearch.screens.searchScreen
 
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
@@ -18,28 +19,28 @@ class SearchScreenViewModel : ViewModel() {
     private var couroutineScope = CoroutineScope(viewmodelJob + Dispatchers.Main)
 
     private val _response = MutableLiveData<List<RepositoryItem>>()
-    val response : LiveData<List<RepositoryItem>>
-            get() = _response
+    val response: LiveData<List<RepositoryItem>>
+        get() = _response
 
     private val _status = MutableLiveData<String>()
-    val status : LiveData<String>
+    val status: LiveData<String>
         get() = _status
-
 
 
     init {
     }
 
-    fun onClick(string: CharSequence) {
-
+    fun onClick(string: String) {
         couroutineScope.launch {
             try {
-            val serverResponse = RepositorySearchApi.retrofitService.getProp(string)
+                val str = string.replace(' ', '+') + "+sort:starts"
+                val serverResponse = RepositorySearchApi.retrofitService.getProp(string, 100)
                 if (serverResponse.isSuccessful) {
-                    val str = serverResponse.body()?.items?.get(0)?.language ?: "null"
+                    //TODO()
                     _status.value = "Success"
+                    _response.value = serverResponse.body()?.items
                 } else {
-                    Log.e("HTTPS search:","HTTPS return code is" + serverResponse.code())
+                    Log.e("HTTPS search:", "HTTPS return code is" + serverResponse.code())
                 }
 
             } catch (e: Exception) {
@@ -47,7 +48,6 @@ class SearchScreenViewModel : ViewModel() {
                 Log.e("HTTPS search", e.message ?: "")
             }
         }
-
 
 
 //        RepositorySearchApi.retrofitService.getPropities(string).enqueue(object : Callback<ResponseData>  {

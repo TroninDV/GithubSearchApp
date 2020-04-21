@@ -67,15 +67,22 @@
             android:layout_height="0dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="4dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="4dp"
             android:layout_marginBottom="4dp"
+            app:fastScrollEnabled="true"
+            app:fastScrollHorizontalThumbDrawable="@drawable/thumb_drawable"
+            app:fastScrollHorizontalTrackDrawable="@drawable/line_drawable"
+            app:fastScrollVerticalThumbDrawable="@drawable/thumb_drawable"
+            app:fastScrollVerticalTrackDrawable="@drawable/line_drawable"
+
+
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toTopOf="@+id/history_button_search_screen_fragment"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/input_bar_text_search_screen_fragment"
-
+            app:listData="@{searchScreenViewModel.response}"
             tools:itemCount="8"
-            tools:listitem="@layout/list_item_repository"/>
+            tools:listitem="@layout/list_item_repository" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
