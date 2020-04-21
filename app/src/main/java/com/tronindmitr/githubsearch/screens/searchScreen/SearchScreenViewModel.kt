@@ -40,7 +40,6 @@ class SearchScreenViewModel : ViewModel() {
         _status.value = RepositorySearchApiStatus.LOADING
         couroutineScope.launch {
             try {
-
                 val str = string.replace(' ', '+') + "+sort:starts"
                 val serverResponse = RepositorySearchApi.retrofitService.getProp(string, 100)
 

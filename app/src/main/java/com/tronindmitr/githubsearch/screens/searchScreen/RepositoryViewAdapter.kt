@@ -1,7 +1,6 @@
 package com.tronindmitr.githubsearch.screens.searchScreen
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -9,21 +8,25 @@ import androidx.recyclerview.widget.RecyclerView
 import com.tronindmitr.githubsearch.RepositoryItem
 import com.tronindmitr.githubsearch.databinding.ListItemRepositoryBinding
 
-class RepositoryViewAdapter : ListAdapter<RepositoryItem, RepositoryViewAdapter.ViewHolder>(RepositoryItemDiffCallback()) {
+class RepositoryViewAdapter(val clickListner: RepositoryItemListener) : ListAdapter<RepositoryItem, RepositoryViewAdapter.ViewHolder>(RepositoryItemDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.from(parent)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = getItem(position)
-        holder.bind(item)
+        val item = getItem(position)!!
+        holder.bind(item, clickListner)
     }
 
     class ViewHolder private constructor(val binding: ListItemRepositoryBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: RepositoryItem) {
+        fun bind(
+            item: RepositoryItem,
+            clickListner: RepositoryItemListener
+        ) {
             binding.repositoryItem = item
+            binding.clickListener = clickListner
             binding.executePendingBindings()
         }
 
@@ -34,8 +37,6 @@ class RepositoryViewAdapter : ListAdapter<RepositoryItem, RepositoryViewAdapter.
                 return ViewHolder(binding)
             }
         }
-
-
     }
 }
 
@@ -48,3 +49,9 @@ class RepositoryItemDiffCallback : DiffUtil.ItemCallback<RepositoryItem>() {
         return oldItem == newItem
     }
 }
+
+class RepositoryItemListener(val clickListner: (repositoryItem: RepositoryItem ) -> Unit) {
+    fun onClick(repositoryItem: RepositoryItem) = clickListner(repositoryItem)
+}
+
+
