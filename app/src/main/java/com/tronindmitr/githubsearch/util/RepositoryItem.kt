@@ -36,7 +36,10 @@ data class RepositoryItem(
     @Json(name = "created_at") val createDate: String,
 
     @ColumnInfo(name = "repository_update_date")
-    @Json(name = "updated_at")  val updateDate: String
+    @Json(name = "updated_at")  val updateDate: String,
+
+    @ColumnInfo(name = "repository_favor")
+    val favor: Boolean = false
 
 )
 

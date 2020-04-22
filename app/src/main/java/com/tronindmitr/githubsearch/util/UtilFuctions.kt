@@ -21,7 +21,8 @@ fun addOrUpdateDatabase (database: RepositoryDatabaseDao, corotineScope: Corouti
                     repositoryItem.description,
                     repositoryItem.language,
                     repositoryItem.createDate,
-                    SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").format(System.currentTimeMillis()).toString()
+                    SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").format(System.currentTimeMillis()).toString(),
+                    false
                 )
             )
         else
@@ -34,7 +35,8 @@ fun addOrUpdateDatabase (database: RepositoryDatabaseDao, corotineScope: Corouti
                     repositoryItem.description,
                     repositoryItem.language,
                     repositoryItem.createDate,
-                    SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").format(Date())
+                    SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").format(Date()),
+                    false
                 )
             )
     }
