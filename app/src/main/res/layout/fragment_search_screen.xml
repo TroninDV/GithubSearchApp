@@ -12,7 +12,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constrain_layout_search_screen_fragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#ffffff">
 
 
         <EditText
@@ -79,9 +80,11 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/input_bar_text_search_screen_fragment"
-            app:listData="@{searchScreenViewModel.response}"
+            app:listDataSearchScreen="@{searchScreenViewModel.response}"
+
+
             tools:itemCount="8"
-            tools:listitem="@layout/list_item_repository" />
+            tools:listitem="@layout/list_item_search_screen" />
 
         <ImageView
             android:id="@+id/status_image_search_screen_fragment"
