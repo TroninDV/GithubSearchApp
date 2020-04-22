@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/searchScreenFragment"
         android:name="com.tronindmitr.githubsearch.screens.searchScreen.SearchScreenFragment"
-        android:label="SearchScreenFragment"
+        android:label="Search in Github"
         tools:layout="@layout/fragment_search_screen">
         <action
             android:id="@+id/action_searchScreenFragment_to_historyScreenFragment"
@@ -17,7 +17,6 @@
     <fragment
         android:id="@+id/historyScreenFragment"
         android:name="com.tronindmitr.githubsearch.screens.historyScreen.HistoryScreenFragment"
-        android:label="fragment_history_screen"
-        tools:layout="@layout/fragment_history_screen"
-        />
+        android:label="History"
+        tools:layout="@layout/fragment_history_screen" />
 </navigation>

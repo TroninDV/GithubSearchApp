@@ -4,15 +4,15 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
+import androidx.navigation.findNavController
+import androidx.navigation.ui.NavigationUI
 import com.tronindmitr.githubsearch.R
 import com.tronindmitr.githubsearch.databinding.FragmentSearchScreenBinding
 import com.tronindmitr.githubsearch.database.RepositoryDatabase
@@ -73,9 +73,20 @@ class SearchScreenFragment : Fragment() {
                 true
             } else false
         }
+
+        setHasOptionsMenu(true)
+
         return binding.root
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.overflow_menu_search_screen, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return NavigationUI.onNavDestinationSelected(item, requireView().findNavController()) ||  super.onOptionsItemSelected(item)
+    }
 
     private fun onCLick() {
         //Hiding the keyboard
