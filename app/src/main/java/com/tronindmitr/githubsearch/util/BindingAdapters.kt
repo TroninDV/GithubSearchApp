@@ -1,6 +1,7 @@
 package com.tronindmitr.githubsearch.util
 
 import android.view.View
+import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
@@ -8,11 +9,19 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.tronindmitr.githubsearch.screens.searchScreen.RepositorySearchApiStatus
 
-@BindingAdapter("listData")
-fun bindRecycleView(recucleView: RecyclerView, data: List<RepositoryItem>?) {
-    val adapter = recucleView.adapter as RepositoryViewAdapter
+@BindingAdapter("listDataSearchScreen")
+fun bindRecycleViewSearchScreen(recucleView: RecyclerView, data: List<RepositoryItem>?) {
+    val adapter = recucleView.adapter as SearchScreenViewAdapter
     adapter.submitList(data)
 }
+
+@BindingAdapter("listDataHistoryScreen")
+fun bindRecycleViewHistoryScreen(recucleView: RecyclerView, data: List<RepositoryItem>?) {
+    val adapter = recucleView.adapter as HistoryScreenViewAdapter
+    adapter.submitList(data)
+}
+
+
 
 @BindingAdapter("repositorySearchApiErrorStatus")
 fun bindErrorStatus(statusImageView: ImageView, status: RepositorySearchApiStatus?) {
@@ -27,7 +36,6 @@ fun bindErrorStatus(statusImageView: ImageView, status: RepositorySearchApiStatu
             statusImageView.visibility = View.GONE
         }
         RepositorySearchApiStatus.EMPTY ->  statusImageView.visibility = View.GONE
-
     }
 }
 
@@ -55,4 +63,5 @@ fun TextView.bindEmptyStatus(status: RepositorySearchApiStatus?) {
         RepositorySearchApiStatus.DONE -> visibility = View.GONE
     }
 }
+
 
