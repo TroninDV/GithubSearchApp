@@ -33,16 +33,12 @@ class HistoryScreenViewModel(val database: RepositoryDatabaseDao, application: A
     val _list : LiveData<List<RepositoryItem>> =
         Transformations.switchMap(isFiltered) {
         if (it == true) {
-            Log.e("HIstory", "fav items changed")
             database.getFavRepositoryItems()}
         else {
-            Log.e("HIstory", "all items changed")
             database.getAllRepositoryItems()
         }
     }
 
-
-//    private var _list = database.getAllRepositoryItems()
     val list: LiveData<List<RepositoryItem>>
         get() = _list
 
@@ -54,18 +50,39 @@ class HistoryScreenViewModel(val database: RepositoryDatabaseDao, application: A
     fun onClickSortByFav() {
         Log.e("History screen", "All")
         isFiltered.value = true
-
     }
-
-
-
-
 
     fun onItemBrowse(repositoryItem: RepositoryItem) {
         coroutineScope.launch {
-            update(repositoryItem)
+            database.update( RepositoryItem(
+                repositoryItem.id,
+                repositoryItem.name,
+                repositoryItem.owner,
+                repositoryItem.url,
+                repositoryItem.description,
+                repositoryItem.language,
+                repositoryItem.createDate,
+                SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").format(Date()),
+                repositoryItem.favor)
+            )
         }
+    }
 
+    fun onClickFav(repositoryItem: RepositoryItem) {
+        coroutineScope.launch {
+            database.update(
+                RepositoryItem(
+                    repositoryItem.id,
+                    repositoryItem.name,
+                    repositoryItem.owner,
+                    repositoryItem.url,
+                    repositoryItem.description,
+                    repositoryItem.language,
+                    repositoryItem.createDate,
+                    repositoryItem.updateDate,
+                    !repositoryItem.favor)
+            )
+        }
     }
 
     suspend fun update(repositoryItem: RepositoryItem) {
@@ -81,8 +98,6 @@ class HistoryScreenViewModel(val database: RepositoryDatabaseDao, application: A
             false)
         )
     }
-
-
 
     override fun onCleared() {
         super.onCleared()
