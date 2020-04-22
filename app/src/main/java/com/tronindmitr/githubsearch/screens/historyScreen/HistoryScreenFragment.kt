@@ -1,14 +1,16 @@
 package com.tronindmitr.githubsearch.screens.historyScreen
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
+import com.tronindmitr.githubsearch.R
 import com.tronindmitr.githubsearch.databinding.FragmentHistoryScreenBinding
 import com.tronindmitr.githubsearch.database.RepositoryDatabase
 import com.tronindmitr.githubsearch.util.RepositoryItemListener
@@ -19,6 +21,8 @@ import com.tronindmitr.githubsearch.util.RepositoryViewAdapter
  */
 class HistoryScreenFragment : Fragment() {
 
+    lateinit var historyScreenViewModel : HistoryScreenViewModel
+    lateinit var adapter : RepositoryViewAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -32,13 +36,13 @@ class HistoryScreenFragment : Fragment() {
 
         val viewModelFactory = HistoryScreenViewModelFactory(dataSource, application)
 
-        val historyScreenViewModel = ViewModelProviders.of(this, viewModelFactory).get(HistoryScreenViewModel::class.java)
+         historyScreenViewModel = ViewModelProviders.of(this, viewModelFactory).get(HistoryScreenViewModel::class.java)
 
         binding.historyScreenViewModel = historyScreenViewModel
 
         binding.lifecycleOwner = this
 
-        val adapter =
+         adapter =
             RepositoryViewAdapter(
                 RepositoryItemListener { repositoryItem ->
                     historyScreenViewModel.onItemBrowse(repositoryItem)
@@ -52,8 +56,36 @@ class HistoryScreenFragment : Fragment() {
 
         binding.recyclerListHistoryScreenFragment.adapter = adapter
 
+        setHasOptionsMenu(true)
+
         return binding.root
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.overflow_menu_history_screen, menu)
+    }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.sort_by_menu_history_screen -> {
+                var answer: Int = 1
+                val alertDialog = AlertDialog.Builder(this.context)
+                    .setTitle("Sort By")
+                    .setSingleChoiceItems(arrayOf("All", "Favorite"), 1)
+                        { dialog: DialogInterface?, which: Int ->
+                            answer = which }
+                    .setPositiveButton("OK") {dialog: DialogInterface?, which: Int ->
+                        when(answer) {
+                            0 -> historyScreenViewModel.isFiltered.postValue(false)
+                            1 -> historyScreenViewModel.isFiltered.postValue(true)
+                        }
+                    }
+                    .setNegativeButton("Cancel") { dialog: DialogInterface?, which: Int -> }
+
+                alertDialog.create().show()
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
 }

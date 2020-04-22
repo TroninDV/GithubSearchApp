@@ -7,7 +7,7 @@ import com.tronindmitr.githubsearch.util.OwnerConverter
 import com.tronindmitr.githubsearch.util.RepositoryItem
 
 
-@Database(entities = [RepositoryItem::class], version = 1, exportSchema = false)
+@Database(entities = [RepositoryItem::class], version = 2, exportSchema = false)
 @TypeConverters(OwnerConverter::class)
 abstract class RepositoryDatabase : RoomDatabase() {
 
@@ -50,8 +50,12 @@ interface RepositoryDatabaseDao {
     fun update(repositoryItem: RepositoryItem)
 
     @Query("SELECT * from repository_table WHERE id = :key")
-    fun get(key: Long) : RepositoryItem
+    fun get(key: Long): RepositoryItem
 
+    //@Query("SELECT * FROM repository_table WHERE repository_favor = 1")
     @Query("SELECT * FROM repository_table ORDER BY repository_update_date DESC")
     fun getAllRepositoryItems(): LiveData<List<RepositoryItem>>
+
+    @Query("SELECT * FROM repository_table WHERE repository_favor = 1")
+    fun getFavRepositoryItems(): LiveData<List<RepositoryItem>>
 }
