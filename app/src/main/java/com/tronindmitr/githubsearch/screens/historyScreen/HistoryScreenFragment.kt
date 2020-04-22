@@ -5,7 +5,6 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.Toast
@@ -13,8 +12,9 @@ import androidx.lifecycle.ViewModelProviders
 import com.tronindmitr.githubsearch.R
 import com.tronindmitr.githubsearch.databinding.FragmentHistoryScreenBinding
 import com.tronindmitr.githubsearch.database.RepositoryDatabase
+import com.tronindmitr.githubsearch.util.HistoryScreenViewAdapter
 import com.tronindmitr.githubsearch.util.RepositoryItemListener
-import com.tronindmitr.githubsearch.util.RepositoryViewAdapter
+import com.tronindmitr.githubsearch.util.SearchScreenViewAdapter
 
 /**
  * A simple [Fragment] subclass.
@@ -22,7 +22,8 @@ import com.tronindmitr.githubsearch.util.RepositoryViewAdapter
 class HistoryScreenFragment : Fragment() {
 
     lateinit var historyScreenViewModel : HistoryScreenViewModel
-    lateinit var adapter : RepositoryViewAdapter
+    lateinit var adapter : HistoryScreenViewAdapter
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -43,7 +44,7 @@ class HistoryScreenFragment : Fragment() {
         binding.lifecycleOwner = this
 
          adapter =
-            RepositoryViewAdapter(
+            HistoryScreenViewAdapter(
                 RepositoryItemListener { repositoryItem ->
                     historyScreenViewModel.onItemBrowse(repositoryItem)
 
@@ -52,6 +53,10 @@ class HistoryScreenFragment : Fragment() {
                     startActivity(openUrlIntent)
 
                     Toast.makeText(this.context, repositoryItem.url, Toast.LENGTH_SHORT).show()
+                },
+                RepositoryItemListener { it ->
+                    historyScreenViewModel.onClickFav(it)
+                    Toast.makeText(this.context, "Fav " + it.id, Toast.LENGTH_SHORT).show()
                 })
 
         binding.recyclerListHistoryScreenFragment.adapter = adapter

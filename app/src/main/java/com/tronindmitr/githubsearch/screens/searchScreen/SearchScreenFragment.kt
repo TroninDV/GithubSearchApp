@@ -17,7 +17,7 @@ import com.tronindmitr.githubsearch.R
 import com.tronindmitr.githubsearch.databinding.FragmentSearchScreenBinding
 import com.tronindmitr.githubsearch.database.RepositoryDatabase
 import com.tronindmitr.githubsearch.util.RepositoryItemListener
-import com.tronindmitr.githubsearch.util.RepositoryViewAdapter
+import com.tronindmitr.githubsearch.util.SearchScreenViewAdapter
 
 /**
  * A simple [Fragment] subclass.
@@ -49,7 +49,7 @@ class SearchScreenFragment : Fragment() {
         binding.lifecycleOwner = this
 
         val adapter =
-            RepositoryViewAdapter(
+            SearchScreenViewAdapter(
                 RepositoryItemListener { repositoryItem ->
                     searchScreenViewModel.onItemBrowse(repositoryItem)
                     val openUrlIntent = Intent(Intent.ACTION_VIEW)
