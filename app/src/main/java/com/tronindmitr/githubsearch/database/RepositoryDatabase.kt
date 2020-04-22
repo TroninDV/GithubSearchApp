@@ -1,11 +1,10 @@
-package com.tronindmitr.githubsearch.screens.database
+package com.tronindmitr.githubsearch.database
 
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.tronindmitr.githubsearch.screens.util.Owner
-import com.tronindmitr.githubsearch.screens.util.OwnerConverter
-import com.tronindmitr.githubsearch.screens.util.RepositoryItem
+import com.tronindmitr.githubsearch.util.OwnerConverter
+import com.tronindmitr.githubsearch.util.RepositoryItem
 
 
 @Database(entities = [RepositoryItem::class], version = 1, exportSchema = false)

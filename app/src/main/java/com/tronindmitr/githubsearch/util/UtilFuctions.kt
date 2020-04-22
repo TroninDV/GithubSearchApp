@@ -1,7 +1,7 @@
-package com.tronindmitr.githubsearch.screens.util
+package com.tronindmitr.githubsearch.util
 
 import android.util.Log
-import com.tronindmitr.githubsearch.screens.database.RepositoryDatabaseDao
+import com.tronindmitr.githubsearch.database.RepositoryDatabaseDao
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat

@@ -15,9 +15,9 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.tronindmitr.githubsearch.R
 import com.tronindmitr.githubsearch.databinding.FragmentSearchScreenBinding
-import com.tronindmitr.githubsearch.screens.database.RepositoryDatabase
-import com.tronindmitr.githubsearch.screens.util.RepositoryItemListener
-import com.tronindmitr.githubsearch.screens.util.RepositoryViewAdapter
+import com.tronindmitr.githubsearch.database.RepositoryDatabase
+import com.tronindmitr.githubsearch.util.RepositoryItemListener
+import com.tronindmitr.githubsearch.util.RepositoryViewAdapter
 
 /**
  * A simple [Fragment] subclass.

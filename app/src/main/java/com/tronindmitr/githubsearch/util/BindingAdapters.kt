@@ -1,4 +1,4 @@
-package com.tronindmitr.githubsearch.screens.util
+package com.tronindmitr.githubsearch.util
 
 import android.view.View
 import android.widget.ImageView

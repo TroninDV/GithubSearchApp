@@ -1,4 +1,4 @@
-package com.tronindmitr.githubsearch.screens.util
+package com.tronindmitr.githubsearch.util
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

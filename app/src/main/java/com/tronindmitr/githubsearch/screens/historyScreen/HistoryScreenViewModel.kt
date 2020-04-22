@@ -4,9 +4,9 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.tronindmitr.githubsearch.screens.database.RepositoryDatabaseDao
-import com.tronindmitr.githubsearch.screens.util.RepositoryItem
-import com.tronindmitr.githubsearch.screens.util.addOrUpdateDatabase
+import com.tronindmitr.githubsearch.database.RepositoryDatabaseDao
+import com.tronindmitr.githubsearch.util.RepositoryItem
+import com.tronindmitr.githubsearch.util.addOrUpdateDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job

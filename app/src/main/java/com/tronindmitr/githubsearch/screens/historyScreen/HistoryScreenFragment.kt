@@ -10,9 +10,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
 import com.tronindmitr.githubsearch.databinding.FragmentHistoryScreenBinding
-import com.tronindmitr.githubsearch.screens.database.RepositoryDatabase
-import com.tronindmitr.githubsearch.screens.util.RepositoryItemListener
-import com.tronindmitr.githubsearch.screens.util.RepositoryViewAdapter
+import com.tronindmitr.githubsearch.database.RepositoryDatabase
+import com.tronindmitr.githubsearch.util.RepositoryItemListener
+import com.tronindmitr.githubsearch.util.RepositoryViewAdapter
 
 /**
  * A simple [Fragment] subclass.

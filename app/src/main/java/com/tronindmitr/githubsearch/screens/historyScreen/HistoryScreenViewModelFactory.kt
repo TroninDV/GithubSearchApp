@@ -3,7 +3,7 @@ package com.tronindmitr.githubsearch.screens.historyScreen
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.tronindmitr.githubsearch.screens.database.RepositoryDatabaseDao
+import com.tronindmitr.githubsearch.database.RepositoryDatabaseDao
 import java.lang.IllegalArgumentException
 
 class HistoryScreenViewModelFactory (

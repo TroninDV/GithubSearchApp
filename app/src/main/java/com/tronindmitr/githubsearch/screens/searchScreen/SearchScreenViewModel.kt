@@ -5,11 +5,11 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.tronindmitr.githubsearch.screens.database.RepositoryDatabase
-import com.tronindmitr.githubsearch.screens.database.RepositoryDatabaseDao
-import com.tronindmitr.githubsearch.screens.network.RepositorySearchApi
-import com.tronindmitr.githubsearch.screens.util.RepositoryItem
-import com.tronindmitr.githubsearch.screens.util.addOrUpdateDatabase
+import com.tronindmitr.githubsearch.database.RepositoryDatabase
+import com.tronindmitr.githubsearch.database.RepositoryDatabaseDao
+import com.tronindmitr.githubsearch.network.RepositorySearchApi
+import com.tronindmitr.githubsearch.util.RepositoryItem
+import com.tronindmitr.githubsearch.util.addOrUpdateDatabase
 import kotlinx.coroutines.*
 import java.text.SimpleDateFormat
 import java.util.*
