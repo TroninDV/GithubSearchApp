@@ -56,6 +56,6 @@ interface RepositoryDatabaseDao {
     @Query("SELECT * FROM repository_table ORDER BY repository_update_date DESC")
     fun getAllRepositoryItems(): LiveData<List<RepositoryItem>>
 
-    @Query("SELECT * FROM repository_table WHERE repository_favor = 1")
+    @Query("SELECT * FROM repository_table WHERE repository_favor = 1 ORDER BY repository_update_date DESC")
     fun getFavRepositoryItems(): LiveData<List<RepositoryItem>>
 }
