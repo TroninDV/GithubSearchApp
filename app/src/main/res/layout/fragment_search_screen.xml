@@ -115,13 +115,13 @@
         </RelativeLayout>
 
         <TextView
-            android:id="@+id/empty_list_notice_search_screen_fragment"
+            android:id="@+id/empty_list_notice_search_history_fragment"
             repositorySearchApiEmptyStatus="@{searchScreenViewModel.status}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Nothing to show"
             android:textSize="24sp"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="@+id/recycler_list_search_screen_fragment"
             app:layout_constraintEnd_toEndOf="@+id/recycler_list_search_screen_fragment"
             app:layout_constraintStart_toStartOf="@+id/recycler_list_search_screen_fragment"

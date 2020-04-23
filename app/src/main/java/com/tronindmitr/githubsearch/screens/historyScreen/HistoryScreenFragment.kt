@@ -14,7 +14,6 @@ import com.tronindmitr.githubsearch.databinding.FragmentHistoryScreenBinding
 import com.tronindmitr.githubsearch.database.RepositoryDatabase
 import com.tronindmitr.githubsearch.util.HistoryScreenViewAdapter
 import com.tronindmitr.githubsearch.util.RepositoryItemListener
-import com.tronindmitr.githubsearch.util.SearchScreenViewAdapter
 
 /**
  * A simple [Fragment] subclass.
@@ -73,24 +72,32 @@ class HistoryScreenFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.sort_by_menu_history_screen -> {
-                var answer: Int = 1
-                val alertDialog = AlertDialog.Builder(this.context)
-                    .setTitle("Sort By")
-                    .setSingleChoiceItems(arrayOf("All", "Favorite"), 1)
-                        { dialog: DialogInterface?, which: Int ->
-                            answer = which }
-                    .setPositiveButton("OK") {dialog: DialogInterface?, which: Int ->
-                        when(answer) {
-                            0 -> historyScreenViewModel.isFiltered.postValue(false)
-                            1 -> historyScreenViewModel.isFiltered.postValue(true)
-                        }
-                    }
-                    .setNegativeButton("Cancel") { dialog: DialogInterface?, which: Int -> }
-
-                alertDialog.create().show()
+            R.id.sort_by_menu_history_screen -> sortByDialog()
+            R.id.delete_all_history_screen -> {
+                historyScreenViewModel.onClickDeleteAll()
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun sortByDialog() {
+        var defaultOption: Int = if (historyScreenViewModel.gtFiltered()) 1 else 0
+        val alertDialog = AlertDialog.Builder(this.context)
+            .setTitle("Sort By")
+            .setSingleChoiceItems(
+                arrayOf("All", "Favorite"), defaultOption
+            )
+            { dialog: DialogInterface?, which: Int ->
+                defaultOption = which
+            }
+            .setPositiveButton("OK") { dialog: DialogInterface?, which: Int ->
+                when (defaultOption) {
+                    0 -> historyScreenViewModel.onClickSortByAll()
+                    1 -> historyScreenViewModel.onClickSortByFav()
+                }
+            }
+            .setNegativeButton("Cancel") { dialog: DialogInterface?, which: Int -> }
+
+        alertDialog.create().show()
     }
 }

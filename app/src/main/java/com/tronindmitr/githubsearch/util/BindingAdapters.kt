@@ -21,6 +21,16 @@ fun bindRecycleViewHistoryScreen(recucleView: RecyclerView, data: List<Repositor
     adapter.submitList(data)
 }
 
+@BindingAdapter("listIsEmpty")
+fun TextView.bindListIsEmpty(data: List<RepositoryItem>?) {
+    if (data != null) {
+        if (data.isEmpty())
+            visibility = View.VISIBLE
+        else
+            visibility = View.GONE
+    }
+}
+
 
 
 @BindingAdapter("repositorySearchApiErrorStatus")

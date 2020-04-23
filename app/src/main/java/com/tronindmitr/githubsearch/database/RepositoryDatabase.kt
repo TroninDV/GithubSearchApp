@@ -58,4 +58,7 @@ interface RepositoryDatabaseDao {
 
     @Query("SELECT * FROM repository_table WHERE repository_favor = 1 ORDER BY repository_update_date DESC")
     fun getFavRepositoryItems(): LiveData<List<RepositoryItem>>
+    
+    @Query("DELETE FROM repository_table")
+    fun deleteAllREpositoryItems()
 }
