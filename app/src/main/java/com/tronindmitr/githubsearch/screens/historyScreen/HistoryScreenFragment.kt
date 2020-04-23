@@ -100,4 +100,6 @@ class HistoryScreenFragment : Fragment() {
 
         alertDialog.create().show()
     }
+
+
 }

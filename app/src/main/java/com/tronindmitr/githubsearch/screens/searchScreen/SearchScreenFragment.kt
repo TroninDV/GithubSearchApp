@@ -10,7 +10,6 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.tronindmitr.githubsearch.R
@@ -20,7 +19,7 @@ import com.tronindmitr.githubsearch.util.RepositoryItemListener
 import com.tronindmitr.githubsearch.util.SearchScreenViewAdapter
 
 /**
- * A simple [Fragment] subclass.
+ * A fragment for search screen
  */
 class SearchScreenFragment : Fragment() {
 
@@ -48,25 +47,19 @@ class SearchScreenFragment : Fragment() {
 
         binding.lifecycleOwner = this
 
-        val adapter =
-            SearchScreenViewAdapter(
+        val adapter = SearchScreenViewAdapter(
                 RepositoryItemListener { repositoryItem ->
                     searchScreenViewModel.onItemBrowse(repositoryItem)
                     val openUrlIntent = Intent(Intent.ACTION_VIEW)
                     openUrlIntent.data = Uri.parse(repositoryItem.url)
                     startActivity(openUrlIntent)
-
-                    Toast.makeText(this.context, repositoryItem.url, Toast.LENGTH_SHORT).show()
                 })
-        binding.recyclerListSearchScreenFragment.adapter = adapter
 
-        binding.historyButtonSearchScreenFragment.setOnClickListener {
-            Navigation.findNavController(it)
-                .navigate(R.id.action_searchScreenFragment_to_historyScreenFragment)
-        }
+        binding.recyclerListSearchScreenFragment.adapter = adapter
 
         binding.searchButtonSearchScreenFragment.setOnClickListener { onCLick() }
 
+        //Button listener for Done button on keyborard
         binding.inputBarTextSearchScreenFragment.setOnEditorActionListener { textView, actionId, event ->
             return@setOnEditorActionListener if (actionId == EditorInfo.IME_ACTION_DONE) {
                 onCLick()
@@ -93,7 +86,7 @@ class SearchScreenFragment : Fragment() {
         val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(view?.windowToken, 0)
 
-        val string = binding.inputBarTextSearchScreenFragment.text.toString()
+        val string = binding.inputBarTextSearchScreenFragment.text.toString().trim()
         if (string.isNotBlank() && string.isNotEmpty()) {
             searchScreenViewModel.onClick(string)
         } else

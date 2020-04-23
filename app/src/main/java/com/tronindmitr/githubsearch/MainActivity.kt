@@ -6,6 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavAction
 import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import com.tronindmitr.githubsearch.databinding.ActivityMainBinding
 
@@ -21,6 +22,7 @@ class MainActivity : AppCompatActivity() {
         val navController = this.findNavController(R.id.nav_host)
 
         drawerLayout = binding.drawerLayout
+
 
         NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)
         NavigationUI.setupWithNavController(binding.navView, navController)

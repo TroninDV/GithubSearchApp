@@ -35,10 +35,6 @@ class SearchScreenViewModel(val database: RepositoryDatabaseDao, application: Ap
     val status: LiveData<RepositorySearchApiStatus>
         get() = _status
 
-
-    init {
-    }
-
     fun onItemBrowse(repositoryItem: RepositoryItem) {
         addOrUpdateDatabase(database, ioCoroutineScope, repositoryItem)
     }
@@ -61,7 +57,6 @@ class SearchScreenViewModel(val database: RepositoryDatabaseDao, application: Ap
                             _response.value = responseBody.items
                         }
                     }
-
                 } else {
                     _status.value = RepositorySearchApiStatus.ERROR
                     _response.value = ArrayList()
