@@ -9,10 +9,14 @@
         android:id="@+id/searchScreenFragment"
         android:name="com.tronindmitr.githubsearch.screens.searchScreen.SearchScreenFragment"
         android:label="Search in Github"
-        tools:layout="@layout/fragment_search_screen"/>
+        tools:layout="@layout/fragment_search_screen" />
     <fragment
         android:id="@+id/historyScreenFragment"
         android:name="com.tronindmitr.githubsearch.screens.historyScreen.HistoryScreenFragment"
         android:label="History"
         tools:layout="@layout/fragment_history_screen" />
+    <fragment
+        android:id="@+id/aboutScreenFragment"
+        android:name="com.tronindmitr.githubsearch.screens.aboutScreen.AboutScreenFragment"
+        android:label="AboutScreenFragment" />
 </navigation>
