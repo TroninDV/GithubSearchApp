@@ -50,12 +50,9 @@ class HistoryScreenFragment : Fragment() {
                     val openUrlIntent = Intent(Intent.ACTION_VIEW)
                     openUrlIntent.data = Uri.parse(repositoryItem.url)
                     startActivity(openUrlIntent)
-
-                    Toast.makeText(this.context, repositoryItem.url, Toast.LENGTH_SHORT).show()
                 },
                 RepositoryItemListener { it ->
                     historyScreenViewModel.onClickFav(it)
-                    Toast.makeText(this.context, "Fav " + it.id, Toast.LENGTH_SHORT).show()
                 })
 
         binding.recyclerListHistoryScreenFragment.adapter = adapter
